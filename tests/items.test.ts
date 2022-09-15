@@ -39,15 +39,16 @@ describe('Testa GET /items ', () => {
 });
 
 describe('Testa GET /items/:id ', () => {
-  // it.todo('Deve retornar status 200 e um objeto igual a o item cadastrado',async ()=>{
-  //   const itemData = await itensFactory.creteItem();
-  //   await supertest(app).post('/items').send(itemData);
-  //   const findItem = await prisma.items.findUnique({where:{title:itemData.title}})
+  it('Deve retornar status 200 e um objeto igual a o item cadastrado',async ()=>{
+    const itemData = await itensFactory.creteItem();
+    await supertest(app).post('/items').send(itemData);
+    const findItem = await prisma.items.findUnique({where:{title:itemData.title}})
 
-  //   const getItem = await supertest(app).get(`/items/${findItem.id}`)
+    const getItem = await supertest(app).get(`/items/${findItem.id}`)
 
-  //   //expect(getItem.body).toEqual(jasmine.objectContaining())
-  // });
+    const expected: TItemData = itemData
+    expect(getItem.body).toMatchObject(expected)
+  });
 
   it('Deve retornar status 404 caso não exista um item com esse id',async ()=>{
     const getItem = await supertest(app).get(`/items/28`)

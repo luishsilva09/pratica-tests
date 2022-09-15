@@ -51,7 +51,7 @@ describe('Testa GET /items/:id ', () => {
   });
 
   it('Deve retornar status 404 caso não exista um item com esse id',async ()=>{
-    const getItem = await supertest(app).get(`/items/28`)
+    const getItem = await supertest(app).get(`/items/1`)
     expect(getItem.status).toBe(404)
   });
   
